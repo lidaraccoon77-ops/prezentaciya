@@ -1,0 +1,344 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Инвестиционная презентация — Иммерсивный хоррор-перфоманс</title>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,700;1,400;1,700&family=Manrope:wght@300;400;500;700&family=JetBrains+Mono:wght@300;400;500&display=swap" rel="stylesheet">
+<style>
+* { margin: 0; padding: 0; box-sizing: border-box; }
+html, body { height: 100%; overflow: hidden; background: #09090C; color: #EAE5D9; font-family: 'Manrope', sans-serif; }
+.slide { position: absolute; inset: 0; padding: 5vh 6vw; opacity: 0; transition: opacity 0.6s ease; display: flex; flex-direction: column; pointer-events: none; }
+.slide.active { opacity: 1; pointer-events: auto; }
+.kicker { font-family: 'JetBrains Mono', monospace; font-size: 0.75rem; letter-spacing: 0.25em; color: #D0A049; text-transform: uppercase; margin-bottom: 1.5rem; }
+h1 { font-family: 'Cormorant Garamond', serif; font-size: clamp(2rem, 4.5vw, 3.5rem); font-weight: 700; line-height: 1.1; color: #EAE5D9; }
+h1 em { font-style: italic; color: #D06076; }
+h2 { font-family: 'Cormorant Garamond', serif; font-size: clamp(1.4rem, 2.5vw, 2rem); font-weight: 700; color: #D0A049; margin-bottom: 1rem; }
+p, li { font-size: clamp(0.85rem, 1.1vw, 1rem); line-height: 1.6; color: #C9C3B4; }
+.lead { font-size: clamp(0.95rem, 1.3vw, 1.15rem); color: #C9C3B4; max-width: 900px; margin-bottom: 2rem; }
+.grid { display: grid; gap: 1.2rem; margin-top: 1.5rem; }
+.grid-2 { grid-template-columns: 1fr 1fr; }
+.grid-3 { grid-template-columns: repeat(3, 1fr); }
+.grid-4 { grid-template-columns: repeat(4, 1fr); }
+.card { background: #141419; border: 1px solid #2A2A33; border-radius: 8px; padding: 1.2rem 1.4rem; }
+.card.highlight { background: #1B1116; border-color: #A3293B; }
+.num { font-family: 'JetBrains Mono', monospace; font-size: clamp(1.4rem, 2.2vw, 1.8rem); color: #EAE5D9; display: block; margin-bottom: 0.3rem; }
+.card h3 { font-size: 0.95rem; font-weight: 700; color: #EAE5D9; margin-bottom: 0.4rem; }
+.card p { font-size: 0.82rem; color: #8E887B; line-height: 1.5; }
+.footer { font-size: 0.8rem; color: #8E887B; margin-top: auto; padding-top: 1rem; border-top: 1px solid #2A2A33; font-family: 'JetBrains Mono', monospace; }
+.nav { position: fixed; bottom: 2rem; right: 2rem; display: flex; gap: 0.6rem; z-index: 100; align-items: center; }
+.nav button { background: #141419; border: 1px solid #2A2A33; color: #EAE5D9; width: 42px; height: 42px; border-radius: 50%; cursor: pointer; font-size: 1.1rem; transition: all 0.3s; font-family: inherit; }
+.nav button:hover { background: #A3293B; border-color: #A3293B; }
+.counter { font-family: 'JetBrains Mono', monospace; font-size: 0.85rem; color: #8E887B; margin: 0 0.5rem; }
+.bar { display: flex; height: 40px; border-radius: 6px; overflow: hidden; margin: 1.5rem 0; }
+.bar div { display: flex; align-items: center; justify-content: center; font-family: 'JetBrains Mono', monospace; font-size: 0.75rem; color: #EAE5D9; }
+.bar .w1 { background: #A3293B; flex: 65.4; }
+.bar .w2 { background: #82ABCC; flex: 11.4; }
+.bar .w3 { background: #D0A049; flex: 11.4; }
+.bar .w4 { background: #6F6A5E; flex: 8.7; }
+.bar .w5 { background: #46525C; flex: 3.0; }
+.rows { margin-top: 1.5rem; }
+.row { display: flex; gap: 1rem; padding: 0.7rem 0; border-bottom: 1px solid #2A2A33; }
+.row .dot { width: 10px; height: 10px; border-radius: 50%; flex-shrink: 0; margin-top: 0.4rem; }
+.row .r-title { font-weight: 700; font-size: 0.95rem; color: #EAE5D9; }
+.row .r-desc { font-size: 0.82rem; color: #8E887B; }
+.timeline { margin-top: 1.5rem; }
+.tl-row { display: flex; gap: 1rem; padding: 0.5rem 0; border-bottom: 1px solid #2A2A33; align-items: center; }
+.tl-month { font-family: 'JetBrains Mono', monospace; font-size: 0.85rem; color: #82ABCC; min-width: 80px; }
+.tl-month.gold { color: #D0A049; }
+.tl-text { font-size: 0.9rem; color: #C9C3B4; }
+.ecg { height: 30px; margin: 1.5rem 0; position: relative; }
+.ecg svg { width: 100%; height: 100%; }
+.stat-row { display: grid; grid-template-columns: repeat(3, 1fr); gap: 1rem; margin: 2rem 0; text-align: center; }
+.stat .n { font-family: 'JetBrains Mono', monospace; font-size: clamp(1.3rem, 2vw, 1.7rem); color: #EAE5D9; }
+.stat .c { font-size: 0.78rem; color: #8E887B; margin-top: 0.3rem; }
+.arrow-big { font-size: 2rem; color: #D06076; text-align: center; margin: 1rem 0; }
+.deal-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 1.5rem; margin-top: 2rem; }
+.deal-card { background: #141419; border: 1px solid #2A2A33; border-radius: 8px; padding: 1.5rem; }
+.deal-card.gold { border-color: #D0A049; border-width: 1.5px; }
+.deal-card .big { font-family: 'JetBrains Mono', monospace; font-size: clamp(1.6rem, 2.5vw, 2rem); color: #D0A049; margin: 0.8rem 0; }
+.deal-card .sub { font-family: 'JetBrains Mono', monospace; font-size: 0.9rem; color: #EAE5D9; }
+.chars-grid { display: grid; grid-template-columns: repeat(6, 1fr); gap: 0.8rem; margin-top: 1.5rem; }
+.char { background: #141419; border: 1px solid #2A2A33; border-radius: 8px; padding: 1.2rem 0.6rem; text-align: center; }
+.char .ini { font-family: 'Cormorant Garamond', serif; font-size: 2rem; font-weight: 700; font-style: italic; color: #7A746A; margin-bottom: 0.5rem; }
+.char .nm { font-family: 'Cormorant Garamond', serif; font-size: 0.85rem; font-weight: 700; color: #EAE5D9; margin-bottom: 0.4rem; }
+.char .ds { font-size: 0.72rem; color: #8E887B; line-height: 1.4; }
+@media (max-width: 900px) {
+  .grid-3, .grid-4, .chars-grid { grid-template-columns: 1fr 1fr; }
+  .deal-grid, .grid-2 { grid-template-columns: 1fr; }
+  .stat-row { grid-template-columns: 1fr; }
+}
+</style>
+</head>
+<body>
+
+<!-- СЛАЙД 1: ОБЛОЖКА -->
+<section class="slide active">
+  <div style="text-align:center; margin-top: 5vh;">
+    <div class="kicker" style="text-align:center;">Инвестиционная презентация · Санкт-Петербург · 2026</div>
+    <h1 style="font-size: clamp(2.5rem, 6vw, 5rem);">«Название»</h1>
+    <p class="lead" style="margin: 1.5rem auto; max-width: 600px;">Иммерсивный хоррор-перфоманс. Не квест — спектакль, в котором зритель становится главным героем.</p>
+    <div class="ecg"><svg viewBox="0 0 1000 80" preserveAspectRatio="none"><polyline points="0,40 300,40 316,14 336,60 350,30 360,40 520,40 536,14 556,60 570,30 580,40 1000,40" fill="none" stroke="#D06076" stroke-width="2"/></svg></div>
+    <div class="stat-row">
+      <div class="stat"><div class="n">2 633 563 ₽</div><div class="c">объём инвестиций</div></div>
+      <div class="stat"><div class="n">~9 мес</div><div class="c">полный возврат вложений</div></div>
+      <div class="stat"><div class="n">210,7%</div><div class="c">доходность за 3 года</div></div>
+    </div>
+  </div>
+</section>
+
+<!-- СЛАЙД 2: ПРОДУКТ -->
+<section class="slide">
+  <div class="kicker">01 · Продукт</div>
+  <h1>Зритель больше не <em>зритель</em></h1>
+  <p class="lead">Команда из 2–4 человек погружается в сознание умирающего врача-онколога — в лабиринт его воспоминаний, страхов и вины. <b style="color:#EAE5D9;">90 минут · 12 локаций · 190 м²</b> игрового пространства. Каждый выбор команды меняет сюжет.</p>
+  <div class="grid grid-3">
+    <div class="card"><span class="num">8</span><h3>концовок</h3><p>Сюжет ветвится от решений команды — каждый визит это другая история</p></div>
+    <div class="card"><span class="num">7</span><h3>индивидуальных заданий</h3><p>Личный сюжет для каждого игрока внутри общего перфоманса</p></div>
+    <div class="card"><span class="num">V</span><h3>шкала вины</h3><p>Невидимая механика: ложь кормит паразитов сознания, правда — причиняет боль</p></div>
+    <div class="card"><span class="num">4</span><h3>профессиональных актёра</h3><p>Выпускники театральных вузов, полноценная режиссёрская постановка</p></div>
+    <div class="card"><span class="num">5.1</span><h3>звук · RGBW-свет · 4К</h3><p>Проекции, объёмный звук и дым-эффекты уровня кино</p></div>
+    <div class="card"><span class="num">18+</span><h3>бесконтактный формат</h3><p>Психологический ужас без физического контакта — опережает новый ГОСТ</p></div>
+  </div>
+  <div class="footer">Сценарий полностью написан и готов к постановке. Штат: 4 актёра, техник на абонентском обслуживании.</div>
+</section>
+
+<!-- СЛАЙД 3: ПЕРСОНАЖИ -->
+<section class="slide">
+  <div class="kicker">02 · Персонажи</div>
+  <h1>Действующие <em>лица</em></h1>
+  <p class="lead">Постановка на профессиональных актёрах, куклы-марионетки и живые «паразиты сознания». Каждый персонаж — отдельная линия сюжета и <b style="color:#EAE5D9;">причина вернуться за другой концовкой</b>.</p>
+  <div class="chars-grid">
+    <div class="char"><div class="ini">А.П.</div><div class="nm">Александр Петров</div><div class="ds">Гений. Онколог. Пациент.</div></div>
+    <div class="char"><div class="ini">Е.С.</div><div class="nm">Елена Смирнова</div><div class="ds">Научный руководитель. Фанатично преданная.</div></div>
+    <div class="char"><div class="ini">Е.П.</div><div class="nm">Екатерина Петрова</div><div class="ds">Жена. Беременна. Знает больше, чем говорит.</div></div>
+    <div class="char"><div class="ini">И.В.</div><div class="nm">Игорь Васильевич</div><div class="ds">Друг, который говорит правду.</div></div>
+    <div class="char"><div class="ini">Н.</div><div class="nm">Наташа</div><div class="ds">Семь лет. Ждёт папу среди игрушек.</div></div>
+    <div class="char"><div class="ini">К</div><div class="nm">Комы</div><div class="ds">Паразиты сознания. Питаются виной.</div></div>
+  </div>
+  <div class="footer">Полный сценарий — 90 минут, реплики, мизансцены, развилки, 8 концовок — <b style="color:#D0A049;">написан и доступен для оценки</b>.</div>
+</section>
+
+<!-- СЛАЙД 4: ПОЧЕМУ СЕЙЧАС -->
+<section class="slide">
+  <div class="kicker" style="color:#82ABCC;">03 · Момент</div>
+  <h1>Почему <em style="color:#82ABCC;">именно сейчас</em></h1>
+  <div class="grid grid-2">
+    <div class="card"><h3>Крупнейший рынок квестов в мире</h3><p>1,3–1,4 млн бронирований в год, ~6 млрд ₽. Петербург — одна из двух столиц индустрии вместе с Москвой.</p></div>
+    <div class="card"><h3>Хоррор — жанр №1</h3><p>Стабильно в топе предпочтений. Люди идут не за загадками, а за яркими эмоциями и «живым» опытом.</p></div>
+    <div class="card"><h3>Смена формата</h3><p>«Комнаты с замками» умерли: спрос ушёл к иммерсивному театру — актёры, спецэффекты, последствия выбора.</p></div>
+    <div class="card"><h3>Регуляторная чистка рынка</h3><p>С 01.12.2026 действует ГОСТ Р 72490-2025 — слабые игроки уйдут. Мы входим уже в полном соответствии.</p></div>
+  </div>
+  <div class="footer">Окно возможностей: спрос на иммерсивные шоу растёт, а качественного предложения в премиум-сегменте — единицы.</div>
+</section>
+
+<!-- СЛАЙД 5: РЫНОК -->
+<section class="slide">
+  <div class="kicker" style="color:#82ABCC;">04 · Рынок</div>
+  <h1>Санкт-Петербург: <em style="color:#82ABCC;">1,1 млрд ₽</em> в год</h1>
+  <div class="grid grid-4">
+    <div class="card"><span class="num">1,1 млрд ₽</span><p>объём рынка квестов СПб в год</p></div>
+    <div class="card"><span class="num">~200</span><p>квестов — вторая столица индустрии</p></div>
+    <div class="card"><span class="num">10 млн</span><p>туристов в год + 5,6 млн жителей</p></div>
+    <div class="card"><span class="num">до 27 000 ₽</span><p>чек премиум-сегмента (средний — 4 500–5 000 ₽)</p></div>
+  </div>
+  <div class="card" style="margin-top:1.5rem;">
+    <h3>Кто платит</h3>
+    <p>Ядро аудитории — 25–40 лет, доход средний и выше. Женщины — главные инициаторы и организаторы досуга. Поводы: вечер с друзьями, необычное свидание, корпоративный тимбилдинг, туристический опыт. Каналы: агрегаторы, соцсети, карты и отзывы.</p>
+  </div>
+  <div class="footer">Сезонный пик — октябрь–декабрь (Хэллоуин, Новый год): праздничные программы дают до 30–40% месячной выручки.</div>
+</section>
+
+<!-- СЛАЙД 6: КОНКУРЕНЦИЯ -->
+<section class="slide">
+  <div class="kicker" style="color:#D06076;">05 · Конкурентное поле</div>
+  <h1>Нас <em style="color:#D06076;">сложно повторить</em></h1>
+  <div class="grid grid-3">
+    <div class="card"><h3>Сетевые гиганты</h3><p style="color:#82ABCC; margin-bottom:0.5rem;">«Клаустрофобия» · iLocked · «2+2»</p><p>Сила — бренд и маркетинг. Слабость — конвейерный продукт. Чек: 4 000–6 000 ₽</p></div>
+    <div class="card"><h3>Топ-индепенденты</h3><p style="color:#82ABCC; margin-bottom:0.5rem;">«Минотавр» · «Астрал» · Quest Stars</p><p>Сила — атмосфера и качество. Слабость — линейный сюжет. Чек: 5 000–8 500 ₽</p></div>
+    <div class="card highlight"><h3>Мы</h3><p style="color:#82ABCC; margin-bottom:0.5rem;">Единственный перфоманс с ветвящимся сюжетом</p><p>8 концовок · 7 личных заданий · V-механика · 4 актёра · кино-технологии. <b style="color:#EAE5D9;">Чек: 12 500–13 500 ₽</b></p></div>
+  </div>
+  <div class="footer">Копирование УТП = сценарий, механики, режиссура, технологии: <b style="color:#D0A049;">минимум 12 месяцев</b> работы. Опережающее соответствие ГОСТ — барьер для последователей.</div>
+</section>
+
+<!-- СЛАЙД 7: ЮНИТ-ЭКОНОМИКА -->
+<section class="slide">
+  <div class="kicker">06 · Юнит-экономика</div>
+  <h1>Каждая игра — <em>66% маржи</em></h1>
+  <div class="grid grid-3">
+    <div class="card"><span class="num">14 900 ₽</span><p>средний чек: 13 100 ₽ игра + 1 800 ₽ доп. услуги</p></div>
+    <div class="card"><span class="num">8 862 ₽</span><p>полная себестоимость игры: аренда, ФОТ, реклама, амортизация</p></div>
+    <div class="card"><span class="num">66%</span><p>маржинальность с учётом доп. услуг</p></div>
+    <div class="card"><span class="num">33</span><p>игры/мес — точка безубыточности</p></div>
+    <div class="card"><span class="num">70</span><p>игр/мес — плановая загрузка</p></div>
+    <div class="card"><span class="num">52,9%</span><p>запас финансовой прочности</p></div>
+  </div>
+  <div class="footer">В модель заложена только продажа видео (берут 60% команд). Фото, мерч и сертификаты — рост <b style="color:#D0A049;">сверх плана</b>.</div>
+</section>
+
+<!-- СЛАЙД 8: ФИНАНСОВАЯ МОДЕЛЬ -->
+<section class="slide">
+  <div class="kicker">07 · Финансовая модель</div>
+  <h1>Консервативный <em>прогноз</em></h1>
+  <div class="grid grid-3">
+    <div class="card"><h3>Год 1</h3><p>Выручка <b style="color:#EAE5D9;">11,7 млн ₽</b> → чистая прибыль <b style="color:#EAE5D9;">3,86 млн ₽</b></p></div>
+    <div class="card"><h3>Год 2</h3><p>Чистая прибыль <b style="color:#EAE5D9;">4,32 млн ₽</b></p></div>
+    <div class="card"><h3>Показатели проекта</h3><p>ROI за 1-й год — <b style="color:#EAE5D9;">146,6%</b> · IRR ≈ <b style="color:#EAE5D9;">135%</b> · NPV (18%, 3 года) ≈ <b style="color:#EAE5D9;">7,2 млн ₽</b></p></div>
+  </div>
+  <div class="grid grid-4" style="margin-top:1.5rem;">
+    <div class="card"><span class="num">763</span><p>выручка, мес. 1 (тыс ₽)</p></div>
+    <div class="card"><span class="num">903</span><p>выручка, мес. 2 (тыс ₽)</p></div>
+    <div class="card"><span class="num">973</span><p>выручка, мес. 3 (тыс ₽)</p></div>
+    <div class="card"><span class="num">1 043</span><p>выручка, мес. 4+ (тыс ₽)</p></div>
+  </div>
+  <div class="footer">Консервативный сценарий: рост цены от 8 500 ₽ до 12 500 ₽ за 4 месяца, 70 игр/мес, без учёта фото, мерча и корпоративных заказов.</div>
+</section>
+
+<!-- СЛАЙД 9: КОМАНДА -->
+<section class="slide">
+  <div class="kicker" style="color:#82ABCC;">08 · Команда</div>
+  <h1>За проектом — <em style="color:#82ABCC;">команда</em></h1>
+  <p class="lead">Дуэт основателей закрывает обе вертикали проекта — продукт и операционную часть. Роли и зоны ответственности разведены и заложены в финансовую модель.</p>
+  <div class="grid grid-2">
+    <div class="card"><h3>[Имя Фамилия]</h3><p style="color:#D06076; font-family:'JetBrains Mono',monospace; font-size:0.8rem; margin-bottom:0.5rem;">Основатель · креатив / сценарий / режиссура</p><p>Опыт: театр, ивенты, квесты. В проекте: сценарий, постановка, кастинг актёров.</p></div>
+    <div class="card"><h3>[Имя Фамилия]</h3><p style="color:#82ABCC; font-family:'JetBrains Mono',monospace; font-size:0.8rem; margin-bottom:0.5rem;">Сооснователь · операции / финансы / маркетинг</p><p>Опыт: управление проектами, P&L, запуски. В проекте: запуск, операционка, отчётность инвестору.</p></div>
+  </div>
+  <div class="grid grid-2" style="margin-top:1rem;">
+    <div class="card"><h3>Операционная команда</h3><p><b style="color:#EAE5D9;">4 актёра</b> — выпускники театральных вузов · техник — абонентское обслуживание.</p></div>
+    <div class="card"><h3>Что уже готово</h3><p>Сценарий на 90 минут · бизнес-план и финансовая модель · структура сделки · критерии локации · план запуска на 5 месяцев.</p></div>
+  </div>
+  <div class="footer">Инвестор получает приоритетный возврат вложений и долю в прибыли — <b style="color:#D0A049;">операционный контроль сохраняется у команды</b>.</div>
+</section>
+
+<!-- СЛАЙД 10: СДЕЛКА -->
+<section class="slide">
+  <div class="kicker">09 · Предложение инвестору</div>
+  <h1>Гибридная схема: <em>возврат + партнёрство</em></h1>
+  <div class="deal-grid">
+    <div>
+      <div class="deal-card" style="margin-bottom:1rem;">
+        <div class="kicker" style="color:#82ABCC; margin-bottom:0.5rem;">Этап 1 · Месяцы 1–9</div>
+        <h3 style="font-size:1.1rem; margin-bottom:0.5rem;">100% чистой прибыли — инвестору</h3>
+        <p>До полного возврата 2 633 563 ₽. Приоритетный возврат, нулевая долговая нагрузка на проект.</p>
+      </div>
+      <div class="arrow-big">↓</div>
+      <div class="deal-card">
+        <div class="kicker" style="color:#82ABCC; margin-bottom:0.5rem;">Этап 2 · Месяцы 10–42</div>
+        <h3 style="font-size:1.1rem; margin-bottom:0.5rem;">30% инвестору · 70% предпринимателю</h3>
+        <p>Три года стабильного пассивного дохода от прибыли проекта.</p>
+      </div>
+    </div>
+    <div class="deal-card gold">
+      <div class="kicker" style="margin-bottom:1rem;">Совокупный доход инвестора за 3 года</div>
+      <div class="big">5 550 454 ₽</div>
+      <div class="sub">210,7% доходности · ≈70% годовых</div>
+      <p style="margin-top:1rem;">Схема честная: предприниматель зарабатывает только из прибыли (6,95 млн ₽ за 3 года) и сохраняет операционный контроль. Ежемесячная прозрачная отчётность.</p>
+    </div>
+  </div>
+  <div class="footer">Юридическое оформление: инвестиционный договор с фиксацией этапов, долей и порядка расчётов.</div>
+</section>
+
+<!-- СЛАЙД 11: СТРУКТУРА ИНВЕСТИЦИЙ -->
+<section class="slide">
+  <div class="kicker">10 · Структура инвестиций</div>
+  <h1>Куда уходит <em>каждый рубль</em></h1>
+  <p class="lead"><b style="color:#EAE5D9; font-family:'JetBrains Mono',monospace;">2 633 563 ₽</b> · структура инвестиций</p>
+  <div class="bar">
+    <div class="w1">65,4%</div>
+    <div class="w2">11,4%</div>
+    <div class="w3">11,4%</div>
+    <div class="w4">8,7%</div>
+    <div class="w5">3%</div>
+  </div>
+  <div class="rows">
+    <div class="row"><div class="dot" style="background:#A3293B;"></div><div><div class="r-title">Создание шоу и локации — 1 723 563 ₽ · 65,4%</div><div class="r-desc">Ремонт, электрика, монтаж, звук, свет, проекции, декорации, мебель</div></div></div>
+    <div class="row"><div class="dot" style="background:#82ABCC;"></div><div><div class="r-title">Безопасность и ГОСТ — 300 000 ₽ · 11,4%</div><div class="r-desc">Пожарная сигнализация, эвакуация, страхование — опережая рынок</div></div></div>
+    <div class="row"><div class="dot" style="background:#D0A049;"></div><div><div class="r-title">Резервный фонд — 300 000 ₽ · 11,4%</div><div class="r-desc">3 месяца постоянных расходов: кассовых разрывов не будет</div></div></div>
+    <div class="row"><div class="dot" style="background:#6F6A5E;"></div><div><div class="r-title">Аренда, ПО, регистрация — 230 000 ₽ · 8,7%</div><div class="r-desc">Депозит и первый месяц аренды, сайт с бронированием, чат-бот, CRM</div></div></div>
+    <div class="row"><div class="dot" style="background:#46525C;"></div><div><div class="r-title">Маркетинг на старте — 80 000 ₽ · 3,0%</div><div class="r-desc">Таргет, контекст, агрегаторы, блогеры</div></div></div>
+  </div>
+</section>
+
+<!-- СЛАЙД 12: РИСКИ -->
+<section class="slide">
+  <div class="kicker" style="color:#82ABCC;">11 · Риски</div>
+  <h1>Каждый риск — <em style="color:#82ABCC;">с планом защиты</em></h1>
+  <div class="grid grid-3">
+    <div class="card"><h3>Сезонный спад (май–июль)</h3><p>→ Резерв 300 тыс ₽, летние тарифы, поток туристов через отели и агрегаторы</p></div>
+    <div class="card"><h3>Текучесть актёров</h3><p>→ Сдельная оплата + бонусы за рейтинг, кадровый резерв из театральных вузов СПб</p></div>
+    <div class="card"><h3>200+ конкурентов</h3><p>→ УТП копируется минимум год: сценарий, механики, режиссура, технологии</p></div>
+    <div class="card"><h3>Ужесточение ГОСТ</h3><p>→ Опережающее соответствие, помещение в нежилом фонде, а не в жилом доме</p></div>
+    <div class="card"><h3>Поломка оборудования</h3><p>→ Абонентское обслуживание, резервный фонд, договоры с мастерскими</p></div>
+    <div class="card"><h3>Репутационные риски</h3><p>→ Страхование ответственности, работа с отзывами, компенсации клиентам</p></div>
+  </div>
+  <div class="footer"><b style="color:#D0A049;">Запас прочности 52,9%</b> — проект остаётся в плюсе даже при падении спроса вдвое.</div>
+</section>
+
+<!-- СЛАЙД 13: ДОРОЖНАЯ КАРТА -->
+<section class="slide">
+  <div class="kicker" style="color:#82ABCC;">12 · Дорожная карта</div>
+  <h1>5 месяцев <em style="color:#82ABCC;">до первой выручки</em></h1>
+  <div class="timeline">
+    <div class="tl-row"><div class="tl-month">Мес 1</div><div class="tl-text">Помещение в центре, регистрация ИП, договор аренды, расчётный счёт</div></div>
+    <div class="tl-row"><div class="tl-month">Мес 2–3</div><div class="tl-text">Ремонт, электрика, звукоизоляция, монтаж звука, света и проекций</div></div>
+    <div class="tl-row"><div class="tl-month">Мес 3–4</div><div class="tl-text">Декорации и реквизит, найм актёров, репетиции</div></div>
+    <div class="tl-row"><div class="tl-month">Мес 4–5</div><div class="tl-text">Тестовые игры с фокус-группами, настройка онлайн-бронирования</div></div>
+    <div class="tl-row"><div class="tl-month">Мес 5</div><div class="tl-text">Официальный запуск и рекламная кампания: таргет, контекст, агрегаторы</div></div>
+    <div class="tl-row"><div class="tl-month gold">Мес 5–14</div><div class="tl-text"><b style="color:#D0A049;">Возврат инвестиций:</b> 100% чистой прибыли — инвестору</div></div>
+    <div class="tl-row"><div class="tl-month gold">Мес 14+</div><div class="tl-text"><b style="color:#D0A049;">Партнёрская фаза:</b> 30% прибыли инвестору / 70% предпринимателю</div></div>
+  </div>
+</section>
+
+<!-- СЛАЙД 14: ФИНАЛ -->
+<section class="slide">
+  <div style="text-align:center; margin-top: 5vh;">
+    <div class="kicker" style="text-align:center;">Следующий шаг</div>
+    <h1 style="font-size: clamp(2rem, 4vw, 3rem);">Простая арифметика <em>сделки</em></h1>
+    <p style="font-family:'JetBrains Mono',monospace; font-size: clamp(1.2rem, 2vw, 1.6rem); margin: 1.5rem 0; color:#EAE5D9;">2 633 563 ₽ <span style="color:#D06076;">→</span> 5 550 454 ₽</p>
+    <div class="stat-row">
+      <div class="stat"><div class="n">~9 мес</div><div class="c">полный возврат вложений</div></div>
+      <div class="stat"><div class="n">210,7%</div><div class="c">доходность за 3 года (≈70% годовых)</div></div>
+      <div class="stat"><div class="n">52,9%</div><div class="c">запас прочности проекта</div></div>
+    </div>
+    <p class="lead" style="margin: 2rem auto; max-width: 700px;">Бизнес-план, полный сценарий и финансовая модель — по запросу. Готовы к проверке цифр и обсуждению договора.</p>
+    <p style="font-family:'JetBrains Mono',monospace; color:#D0A049; font-size:1rem; letter-spacing:0.1em;">[Имя Фамилия] · [телефон] · [e-mail]</p>
+  </div>
+</section>
+
+<!-- НАВИГАЦИЯ -->
+<div class="nav">
+  <button onclick="prev()">←</button>
+  <span class="counter" id="counter">01 / 14</span>
+  <button onclick="next()">→</button>
+</div>
+
+<script>
+let current = 0;
+const slides = document.querySelectorAll('.slide');
+const total = slides.length;
+const counter = document.getElementById('counter');
+
+function show(n) {
+  slides[current].classList.remove('active');
+  current = (n + total) % total;
+  slides[current].classList.add('active');
+  counter.textContent = String(current + 1).padStart(2, '0') + ' / ' + total;
+}
+function next() { show(current + 1); }
+function prev() { show(current - 1); }
+
+document.addEventListener('keydown', e => {
+  if (e.key === 'ArrowRight' || e.key === ' ') { e.preventDefault(); next(); }
+  if (e.key === 'ArrowLeft') { e.preventDefault(); prev(); }
+});
+
+// Свайпы для мобильных
+let startX = 0;
+document.addEventListener('touchstart', e => startX = e.touches[0].clientX);
+document.addEventListener('touchend', e => {
+  const diff = startX - e.changedTouches[0].clientX;
+  if (Math.abs(diff) > 50) diff > 0 ? next() : prev();
+});
+</script>
+</body>
+</html>
