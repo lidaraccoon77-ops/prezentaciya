@@ -116,19 +116,19 @@ p,li{font-size:clamp(.88rem,1.05vw,1rem);line-height:1.7;color:#C4BCAC}
 .char .ds{font-size:.68rem;color:var(--muted);line-height:1.4}
 .img-slot{flex:1;display:flex;align-items:center;justify-content:center;margin:1rem 0;min-height:0;border:1px dashed rgba(184,144,85,.25);border-radius:12px;padding:1rem;overflow:hidden}
 .img-slot img{max-width:100%;max-height:100%;object-fit:contain;border-radius:8px;filter:drop-shadow(0 20px 50px rgba(0,0,0,.5))}
-.donut-wrap{display:grid;grid-template-columns:1fr 1.2fr;gap:2rem;align-items:center;margin-top:1.3rem}
-.donut-svg{width:100%;max-width:340px;margin:0 auto;display:block;overflow:visible}
+.donut-wrap{display:grid;grid-template-columns:1fr 1.3fr;gap:2.5rem;align-items:center;margin-top:1.5rem;flex:1}
+.donut-svg{width:100%;max-width:440px;margin:0 auto;display:block;overflow:visible}
 .donut-seg{fill:none;stroke-width:28;transition:stroke-width .4s,opacity .4s;cursor:pointer}
 .donut-svg:hover .donut-seg:not(:hover){opacity:.35}
 .donut-seg:hover{stroke-width:38;filter:drop-shadow(0 0 25px currentColor) drop-shadow(0 0 50px currentColor)}
 .legend{display:flex;flex-direction:column;gap:.6rem}
-.legend-item{display:flex;gap:.9rem;align-items:center;padding:.8rem 1.05rem;background:var(--card);border:1px solid var(--line);border-radius:8px;transition:all .4s}
+.legend-item{display:flex;gap:1rem;align-items:center;padding:1rem 1.2rem;background:var(--card);border:1px solid var(--line);border-radius:10px;transition:all .4s;cursor:pointer}
 .legend-item:hover{transform:translateX(8px);border-color:rgba(184,144,85,.5);background:var(--card2)}
 .legend-dot{width:12px;height:12px;border-radius:3px;flex-shrink:0;box-shadow:0 0 10px currentColor}
 .legend-t{flex:1}
-.legend-ttl{font-weight:500;font-size:.9rem;color:var(--ink)}
-.legend-desc{font-size:.76rem;color:var(--muted);margin-top:.15rem}
-.legend-amt{font-family:var(--mono);font-size:.88rem;color:var(--gold-l);font-weight:500}
+.legend-ttl{font-weight:500;font-size:1rem;color:var(--ink)}
+.legend-desc{font-size:.82rem;color:var(--muted);margin-top:.2rem;line-height:1.4}
+.legend-amt{font-family:var(--mono);font-size:1rem;color:var(--gold-l);font-weight:600}
 .bar-chart{width:100%;height:420px;margin:.5rem 0}
 .bar-chart svg{width:100%;height:100%;overflow:visible}
 .bar{transform-origin:bottom;transform:scaleY(0);transition:transform 1.3s cubic-bezier(.2,.8,.2,1)}
@@ -159,6 +159,9 @@ p,li{font-size:clamp(.88rem,1.05vw,1rem);line-height:1.7;color:#C4BCAC}
 .dots{display:none}
 .slide{padding:4vh 5vw 12vh}
 }
+  /* Подсветка связанных элементов */
+.legend-item.active-key{background:var(--card2);border-color:var(--gold);box-shadow:0 0 30px rgba(184,144,85,.3);transform:translateX(8px)}
+.donut-seg.active-key{stroke-width:40;filter:drop-shadow(0 0 25px currentColor) drop-shadow(0 0 50px currentColor);opacity:1 !important}
 </style>
 </head>
 <body>
@@ -260,20 +263,20 @@ p,li{font-size:clamp(.88rem,1.05vw,1rem);line-height:1.7;color:#C4BCAC}
     <div class="card reveal" style="--i:4"><span class="num">10 млн</span><p>туристов в год + 5,6 млн жителей</p></div>
     <div class="card reveal" style="--i:5"><span class="num">27 000 ₽</span><p>чек премиум-сегмента</p></div>
   </div>
-  <div class="kicker reveal" style="--i:6;margin-top:1.2rem">Целевая аудитория</div>
-  <div class="grid grid-3 grid-focus">
+  <div class="kicker reveal" style="--i:6;margin-top:.2rem;margin-bottom:.3rem">Целевая аудитория</div>
+<div class="grid grid-3 grid-focus" style="margin-top:.2rem;gap:.6rem">
     <div class="card gold-title reveal" style="--i:7"><h3>Женщины 25–40</h3><p>Главные инициаторы досуга, средний+ доход</p></div>
     <div class="card gold-title reveal" style="--i:8"><h3>Мужчины 25–40</h3><p>Компании друзей, корпоративные группы</p></div>
     <div class="card gold-title reveal" style="--i:9"><h3>Туристы</h3><p>10 млн в год — уникальный петербургский опыт</p></div>
   </div>
-  <div class="kicker reveal" style="--i:10;margin-top:1rem">Поводы</div>
-  <div class="grid grid-4 grid-focus">
+  <div class="kicker reveal" style="--i:10;margin-top:.3rem;margin-bottom:.3rem">Поводы</div>
+<div class="grid grid-4 grid-focus" style="margin-top:.2rem;gap:.6rem">
     <div class="card gold-title reveal" style="--i:11"><h3>Вечер с друзьями</h3><p>Компания 2–4 человека</p></div>
     <div class="card gold-title reveal" style="--i:12"><h3>Свидание</h3><p>Необычный совместный опыт</p></div>
     <div class="card gold-title reveal" style="--i:13"><h3>Корпоратив</h3><p>Тимбилдинг и HR-мероприятия</p></div>
     <div class="card gold-title reveal" style="--i:14"><h3>Тур-опыт</h3><p>Уникальное воспоминание о городе</p></div>
   </div>
-  <div class="callout reveal" style="--i:15">У каждого сезона — свой клиент. Весной и летом это туристы. Осенью и зимой — жители Петербурга в поисках ярких эмоций.</div>
+  <div class="callout reveal" style="--i:15">У каждого сезона — свой клиент. Весной и летом — туристы. Осенью и зимой — жители Петербурга в поисках ярких эмоций.</div>
 </section>
 
 <section class="slide" data-t="clip-d">
@@ -289,7 +292,7 @@ p,li{font-size:clamp(.88rem,1.05vw,1rem);line-height:1.7;color:#C4BCAC}
     <div class="card gold-title reveal" style="--i:6;background:linear-gradient(135deg,#1F1A14,#13141B);border-color:var(--gold);border-width:1.5px;box-shadow:0 0 40px rgba(184,144,85,.2);padding:2rem;display:flex;flex-direction:column;gap:1rem">
   <div class="kicker">НАШЕ ПРЕИМУЩЕСТВО</div>
   <h3 style="font-size:1.5rem;color:var(--gold-l);margin-bottom:.4rem">МЫ</h3>
-  <p style="font-size:.92rem;line-height:1.75;color:#C4BCAC"><b style="color:var(--ink)">Единственный иммерсивный перфоманс в Санкт-Петербурге</b> с ветвящимся сюжетом: 8 уникальных концовок, 7 личных заданий и V-механика вины, превращающая зрителя в создателя истории.</p>
+  <p style="font-size:.92rem;line-height:1.75;color:#C4BCAC"><b style="color:var(--ink)">Единственный иммерсивный перфоманс в Санкт-Петербурге</b> с ветвящимся сюжетом: 8 уникальных концовок, 7 личных заданий и V-механика вины. <b style="color:var(--gold-l)">Зритель — создатель истории.</b></p>
   <p style="font-size:.92rem;line-height:1.75;color:#C4BCAC"><b style="color:var(--ink)">Профессиональные актёры</b> театральных вузов + технологии уровня кино: объёмный звук 5.1, управляемый RGBW-свет, 4K-проекции и дым-эффекты.</p>
   <p style="font-size:.92rem;line-height:1.75;color:#C4BCAC"><b style="color:var(--ink)">Опережаем рынок на 2 года</b> — полное соответствие ГОСТ Р 72490-2025 до вступления в силу. Слабые игроки уйдут, мы останемся.</p>
   <p style="font-size:.92rem;line-height:1.75;color:#C4BCAC"><b style="color:var(--ink)">Копирование УТП — минимум 12 месяцев</b> работы: авторский сценарий, механики вины и режиссура. Премиум-чек 12 500–13 500 ₽ обоснован продуктом.</p>
@@ -373,28 +376,29 @@ p,li{font-size:clamp(.88rem,1.05vw,1rem);line-height:1.7;color:#C4BCAC}
       <div class="card highlight reveal" style="--i:5"><h3>Показатели</h3><p style="font-size:.9rem">ROI — <b style="color:var(--gold-l)">146,6%</b> · IRR ≈ <b style="color:var(--gold-l)">135%</b> · NPV ≈ <b style="color:var(--gold-l)">7,2 млн ₽</b></p></div>
     </div>
   </div>
-  <div class="callout reveal" style="--i:6">Рост цены от 8 500 ₽ до 12 500 ₽ за 4 месяца. <b>70 игр/мес.</b></div>
+  <div class="callout reveal" style="--i:6">Рост цены от 8 500 ₽ до 12 500 ₽ за 4 месяца. <b>~70 игр/мес.</b></div>
 </section>
 
 <section class="slide" data-t="scale">
   <div class="kicker reveal" style="--i:0">10 · Команда</div>
   <h1 class="reveal" style="--i:1">За проектом — <em>команда</em></h1>
-  <p class="lead reveal" style="--i:2">Дуэт основателей с суммарным опытом более 13 лет в квест-индустрии и театре. Мы создаём иммерсивный хоррор-перфоманс нового поколения.</p>
+  <p class="lead reveal" style="--i:2;margin-bottom:.6rem">Дуэт основателей с суммарным опытом более 13 лет в квест-индустрии и театре.</p>
+<p class="reveal" style="--i:3;font-family:var(--serif);font-size:clamp(1.05rem,1.6vw,1.35rem);color:var(--gold-l);font-weight:600;letter-spacing:-.005em;margin-bottom:1.3rem;text-shadow:0 0 30px rgba(184,144,85,.3)">Мы создаём иммерсивный хоррор-перфоманс нового поколения.</p>
   <div class="founders-grid">
-    <div class="founder reveal" style="--i:3">
+    <div class="founder reveal" style="--i:4">
       <div class="founder-photo"><span class="initial">Н</span></div>
       <h3>Надежда Хорушкина</h3>
       <div class="founder-role">Управление · Экономика</div>
       <p class="founder-bio"><b>Запуск квестов с нуля, стройка, бюджеты, P&L и вся организационная часть.</b> В индустрии более 6 лет.</p>
     </div>
-    <div class="founder reveal" style="--i:4">
+    <div class="founder reveal" style="--i:5">
       <div class="founder-photo"><span class="initial">Л</span></div>
       <h3>Лидия Овсянникова</h3>
       <div class="founder-role">Творческая часть</div>
       <p class="founder-bio"><b>Сценарии, постановка, обучение актёров и операторов.</b> 7 лет в квестах и театральный опыт с 2009 года.</p>
     </div>
   </div>
-  <div class="callout reveal" style="--i:5">Инвестор получает приоритетный возврат и долю в прибыли — <b>контроль сохраняется у команды</b>.</div>
+  <div class="callout reveal" style="--i:6">Инвестор получает приоритетный возврат и долю в прибыли — <b>контроль сохраняется у команды</b>.</div>
 </section>
 
 <section class="slide" data-t="blur">
@@ -410,8 +414,9 @@ p,li{font-size:clamp(.88rem,1.05vw,1rem);line-height:1.7;color:#C4BCAC}
       <div class="arrow-big reveal" style="--i:3">↓</div>
       <div class="deal-card reveal" style="--i:4">
         <div class="kicker" style="margin-bottom:.6rem">ЭТАП 2 · МЕСЯЦЫ 10–42</div>
-        <h3 style="font-size:1.15rem;margin-bottom:.5rem;font-family:var(--serif);font-weight:600">30% инвестору · 70% предпринимателю</h3>
+<h3 style="font-size:1.15rem;margin-bottom:.5rem;font-family:var(--serif);font-weight:600">30% инвестору · 70% предпринимателю</h3>
         <p>Три года стабильного пассивного дохода.</p>
+        <p style="margin-top:.5rem;font-family:var(--mono);font-size:.95rem;color:var(--gold-l);font-weight:500">Ежемесячный доход ~110 000 ₽</p>
       </div>
     </div>
     <div class="deal-card gold reveal" style="--i:5">
@@ -431,21 +436,21 @@ p,li{font-size:clamp(.88rem,1.05vw,1rem);line-height:1.7;color:#C4BCAC}
     <div class="reveal" style="--i:2">
       <svg class="donut-svg" viewBox="0 0 240 240">
         <circle cx="120" cy="120" r="88" fill="none" stroke="#242530" stroke-width="28"/>
-        <circle class="donut-seg" cx="120" cy="120" r="88" stroke="#B89055" data-val="361.6" data-off="0" style="color:#B89055"/>
-        <circle class="donut-seg" cx="120" cy="120" r="88" stroke="#8A6E4A" data-val="63.1" data-off="-361.6" style="color:#8A6E4A"/>
-        <circle class="donut-seg" cx="120" cy="120" r="88" stroke="#5C1A2E" data-val="63.1" data-off="-424.7" style="color:#5C1A2E"/>
-        <circle class="donut-seg" cx="120" cy="120" r="88" stroke="#7A6E5E" data-val="48.0" data-off="-487.8" style="color:#7A6E5E"/>
-        <circle class="donut-seg" cx="120" cy="120" r="88" stroke="#3A3740" data-val="16.6" data-off="-535.8" style="color:#3A3740"/>
+<circle class="donut-seg" data-key="w1" cx="120" cy="120" r="88" stroke="#B89055" data-val="361.6" data-off="0" style="color:#B89055"/>
+        <circle class="donut-seg" data-key="w2" cx="120" cy="120" r="88" stroke="#8A6E4A" data-val="63.1" data-off="-361.6" style="color:#8A6E4A"/>
+        <circle class="donut-seg" data-key="w3" cx="120" cy="120" r="88" stroke="#5C1A2E" data-val="63.1" data-off="-424.7" style="color:#5C1A2E"/>
+        <circle class="donut-seg" data-key="w4" cx="120" cy="120" r="88" stroke="#7A6E5E" data-val="48.0" data-off="-487.8" style="color:#7A6E5E"/>
+        <circle class="donut-seg" data-key="w5" cx="120" cy="120" r="88" stroke="#3A3740" data-val="16.6" data-off="-535.8" style="color:#3A3740"/>
         <text x="120" y="112" text-anchor="middle" font-family="JetBrains Mono" font-size="10" fill="#8A8378" letter-spacing="2">ВСЕГО</text>
         <text x="120" y="134" text-anchor="middle" font-family="JetBrains Mono" font-size="14" font-weight="500" fill="#EFE7D6">2 633 563 ₽</text>
       </svg>
     </div>
     <div class="legend">
-      <div class="legend-item reveal" style="--i:3"><div class="legend-dot" style="background:#B89055;color:#B89055"></div><div class="legend-t"><div class="legend-ttl">Создание шоу и локации</div><div class="legend-desc">Ремонт, электрика, монтаж, звук, свет, декорации — 1 723 563 ₽</div></div><div class="legend-amt">65,4%</div></div>
-      <div class="legend-item reveal" style="--i:4"><div class="legend-dot" style="background:#8A6E4A;color:#8A6E4A"></div><div class="legend-t"><div class="legend-ttl">Безопасность и ГОСТ</div><div class="legend-desc">Пожарная сигнализация, эвакуация — 300 000 ₽</div></div><div class="legend-amt">11,4%</div></div>
-      <div class="legend-item reveal" style="--i:5"><div class="legend-dot" style="background:#5C1A2E;color:#5C1A2E"></div><div class="legend-t"><div class="legend-ttl">Резервный фонд</div><div class="legend-desc">3 месяца постоянных расходов — 300 000 ₽</div></div><div class="legend-amt">11,4%</div></div>
-      <div class="legend-item reveal" style="--i:6"><div class="legend-dot" style="background:#7A6E5E;color:#7A6E5E"></div><div class="legend-t"><div class="legend-ttl">Аренда, ПО, регистрация</div><div class="legend-desc">Депозит, сайт, CRM, чат-бот — 230 000 ₽</div></div><div class="legend-amt">8,7%</div></div>
-      <div class="legend-item reveal" style="--i:7"><div class="legend-dot" style="background:#3A3740;color:#3A3740"></div><div class="legend-t"><div class="legend-ttl">Маркетинг на старте</div><div class="legend-desc">Таргет, контекст, агрегаторы — 80 000 ₽</div></div><div class="legend-amt">3,0%</div></div>
+      <div class="legend-item reveal" data-key="w1" style="--i:3"><div class="legend-dot" style="background:#B89055;color:#B89055"></div><div class="legend-t"><div class="legend-ttl">Создание шоу и локации</div><div class="legend-desc">Ремонт, электрика, монтаж, звук, свет, декорации — 1 723 563 ₽</div></div><div class="legend-amt">65,4%</div></div>
+      <div class="legend-item reveal" data-key="w2" style="--i:4"><div class="legend-dot" style="background:#8A6E4A;color:#8A6E4A"></div><div class="legend-t"><div class="legend-ttl">Безопасность и ГОСТ</div><div class="legend-desc">Пожарная сигнализация, эвакуация — 300 000 ₽</div></div><div class="legend-amt">11,4%</div></div>
+      <div class="legend-item reveal" data-key="w3" style="--i:5"><div class="legend-dot" style="background:#5C1A2E;color:#5C1A2E"></div><div class="legend-t"><div class="legend-ttl">Резервный фонд</div><div class="legend-desc">3 месяца постоянных расходов — 300 000 ₽</div></div><div class="legend-amt">11,4%</div></div>
+      <div class="legend-item reveal" data-key="w4" style="--i:6"><div class="legend-dot" style="background:#7A6E5E;color:#7A6E5E"></div><div class="legend-t"><div class="legend-ttl">Аренда, ПО, регистрация</div><div class="legend-desc">Депозит, сайт, CRM, чат-бот — 230 000 ₽</div></div><div class="legend-amt">8,7%</div></div>
+      <div class="legend-item reveal" data-key="w5" style="--i:7"><div class="legend-dot" style="background:#3A3740;color:#3A3740"></div><div class="legend-t"><div class="legend-ttl">Маркетинг на старте</div><div class="legend-desc">Таргет, контекст, агрегаторы — 80 000 ₽</div></div><div class="legend-amt">3,0%</div></div>
     </div>
   </div>
 </section>
@@ -488,15 +493,15 @@ p,li{font-size:clamp(.88rem,1.05vw,1rem);line-height:1.7;color:#C4BCAC}
       <div class="stat"><div class="n">210,7%</div><div class="c">доходность за 3 года</div></div>
       <div class="stat"><div class="n">52,9%</div><div class="c">запас прочности проекта</div></div>
     </div>
-    <p class="lead reveal" style="--i:4;margin:1.8rem auto 0;max-width:700px;text-align:center">Бизнес-план, полный сценарий и финансовая модель — по запросу. Готовы к проверке цифр и обсуждению договора.</p>
-    <div class="contacts reveal" style="--i:5">
+    <p class="lead reveal" style="--i:4;margin:1.8rem auto 0;max-width:700px;text-align:center;margin-bottom:.5rem">Бизнес-план, полный сценарий и финансовая модель — по запросу.</p>
+<p class="reveal" style="--i:5;max-width:700px;margin:0 auto 1.5rem;text-align:center;font-size:clamp(.95rem,1.15vw,1.05rem);color:#C4BCAC;line-height:1.7">Готовы к проверке цифр и обсуждению договора.</p>
+    <div class="contacts reveal" style="--i:6">
       <div class="contact-card"><div class="contact-name">Надежда Хорушкина</div><div class="contact-info">+7 917 050-87-75</div></div>
       <div class="contact-card"><div class="contact-name">Лидия Овсянникова</div><div class="contact-info">+7 906 805-80-50</div></div>
       <div class="contact-card"><div class="contact-name">E-mail</div><div class="contact-info" style="font-size:.75rem">goodnady031200@gmail.com</div></div>
     </div>
   </div>
 </section>
-
 <div class="dots" id="dots"></div>
 <div class="nav">
   <button onclick="prev()" aria-label="Назад">←</button>
@@ -504,6 +509,21 @@ p,li{font-size:clamp(.88rem,1.05vw,1rem);line-height:1.7;color:#C4BCAC}
   <button onclick="next()" aria-label="Вперёд">→</button>
 </div>
 
+  // === СИНХРОННАЯ ПОДСВЕТКА ДИАГРАММЫ И ИКОНОК (слайд 13) ===
+document.querySelectorAll('.donut-seg, .legend-item').forEach(el => {
+  el.addEventListener('mouseenter', () => {
+    const key = el.dataset.key;
+    document.querySelectorAll(`[data-key="${key}"]`).forEach(partner => {
+      partner.classList.add('active-key');
+    });
+  });
+  el.addEventListener('mouseleave', () => {
+    const key = el.dataset.key;
+    document.querySelectorAll(`[data-key="${key}"]`).forEach(partner => {
+      partner.classList.remove('active-key');
+    });
+  });
+});
 <script>
 let current=0;const slides=document.querySelectorAll('.slide');const total=slides.length;
 const counter=document.getElementById('counter');const progress=document.getElementById('progress');
