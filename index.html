@@ -508,22 +508,6 @@ p,li{font-size:clamp(.88rem,1.05vw,1rem);line-height:1.7;color:#C4BCAC}
   <span class="counter" id="counter">01 / 16</span>
   <button onclick="next()" aria-label="Вперёд">→</button>
 </div>
-
-  // === СИНХРОННАЯ ПОДСВЕТКА ДИАГРАММЫ И ИКОНОК (слайд 13) ===
-document.querySelectorAll('.donut-seg, .legend-item').forEach(el => {
-  el.addEventListener('mouseenter', () => {
-    const key = el.dataset.key;
-    document.querySelectorAll(`[data-key="${key}"]`).forEach(partner => {
-      partner.classList.add('active-key');
-    });
-  });
-  el.addEventListener('mouseleave', () => {
-    const key = el.dataset.key;
-    document.querySelectorAll(`[data-key="${key}"]`).forEach(partner => {
-      partner.classList.remove('active-key');
-    });
-  });
-});
 <script>
 let current=0;const slides=document.querySelectorAll('.slide');const total=slides.length;
 const counter=document.getElementById('counter');const progress=document.getElementById('progress');
@@ -578,6 +562,24 @@ for(let i=0;i<60;i++)particles.push(new Particle());
 function animate(){ctx.clearRect(0,0,W,H);particles.forEach(p=>{p.update();p.draw()});requestAnimationFrame(animate)}
 animate();
 animateCounters(slides[0]);animateBars(slides[0]);animateDonut(slides[0]);updateUI();
+  
+// === СИНХРОННАЯ ПОДСВЕТКА ДИАГРАММЫ И ИКОНОК (слайд 13) ===
+document.querySelectorAll('.donut-seg, .legend-item').forEach(el => {
+  el.addEventListener('mouseenter', () => {
+    const key = el.dataset.key;
+    document.querySelectorAll(`[data-key="${key}"]`).forEach(partner => {
+      partner.classList.add('active-key');
+    });
+  });
+  el.addEventListener('mouseleave', () => {
+    const key = el.dataset.key;
+    document.querySelectorAll(`[data-key="${key}"]`).forEach(partner => {
+      partner.classList.remove('active-key');
+    });
+  });
+});
+
+</script>
 </script>
 </body>
 </html>
